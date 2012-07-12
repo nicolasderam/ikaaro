@@ -23,6 +23,7 @@ from itools.web import get_context, ERROR, FormError
 
 # Import from ikaaro
 from autoform import AutoForm, HiddenWidget, ReadOnlyWidget, SelectWidget
+from config_common import NewResource_Local
 from datatypes import BirthDate
 from datatypes import Days, Months, Years
 from buttons import Button
@@ -39,6 +40,13 @@ class Location_Datatype(Enumerate):
         class_id = context.query['type']
 
         items = []
+        # Add local path if NewResource_Local
+        if (isinstance(context.resource.new_resource, NewResource_Local) or
+            issubclass(context.resource.new_resource, NewResource_Local)):
+            path = context.resource.abspath
+            title = '/' if not path else ('%s/' % path)
+            items.append({'name': path, 'value': title, 'selected': True})
+        # Add content containers
         for resource in get_content_containers(context, class_id):
             path = resource.abspath
             title = '/' if not path else ('%s/' % path)
@@ -93,7 +101,14 @@ class AutoAdd(AutoForm):
     fields = []
     def get_fields(self):
         cls = self._resource_class
+        resource = get_context().resource
         for name in self.fields:
+            # Skip location if new_resource is NewResource_Local
+            new_resource = getattr(resource, 'new_resource', None)
+            if (name == 'location' and new_resource is not None and
+                issubclass(new_resource, NewResource_Local)):
+                continue
+
             field = self.get_field(name)
             if not is_prototype(field, Field):
                 field = cls.get_field(name)
