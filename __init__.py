@@ -47,7 +47,7 @@ register_document_type(File)
 
 # Import ikaaro sub-packages (NOTE must be imported after so they are
 # register after)
-import calendar
+import agenda
 import forum
 import tracker
 try:
