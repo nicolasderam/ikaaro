@@ -61,9 +61,9 @@ summarizes these changes:
 
   Before                                 Now
   -------------------------------------  --------------------------------------
-  calendar_.CalendarBase                 calendar.CalendarBase
-  calendar_views.MonthlyView             calendar.MonthlyView
-  calendar_views.WeeklyView              calendar.WeeklyView
+  calendar_.CalendarBase                 agenda.CalendarBase
+  calendar_views.MonthlyView             agenda.MonthlyView
+  calendar_views.WeeklyView              agenda.WeeklyView
   folder_views.Folder_LastChanges        revisions_views.DBResource_LastChanges
   html.*                                 webpage.*
   resource_views.DBResource_NewInstance  views_new.NewInstance
