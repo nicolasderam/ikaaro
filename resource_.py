@@ -164,6 +164,8 @@ class DBResource(Resource):
 
     def _get_names(self):
         folder = self.handler
+        if folder is None:
+            return []
         return [ x[:-9] for x in folder.get_handler_names()
                  if x[-9:] == '.metadata' ]
 
