@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 # Copyright (C) 2008 Juan David Ibáñez Palomar <jdavid@itaapy.com>
+# Copyright (C) 2015 Nicolas Deram <nicolas@agicia.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,6 +19,7 @@
 from itools.core import merge_dicts, proto_property, proto_lazy_property
 from itools.datatypes import Boolean, Integer, String
 from itools.gettext import MSG
+from itools.handlers import checkid
 from itools.stl import stl
 from itools.web import STLView
 from itools.xml import XMLParser
@@ -455,7 +457,7 @@ class BrowseForm(STLView):
                 columns_ns.append({
                     'is_checkbox': False,
                     'title': title,
-                    'css': 'thead-%s' % name,
+                    'css': 'thead-%s' % name.replace('_', '-'),
                     'href': None,
                     'sortable': False})
             else:
@@ -469,7 +471,7 @@ class BrowseForm(STLView):
                 columns_ns.append({
                     'is_checkbox': False,
                     'title': title,
-                    'css': 'thead-%s' % name,
+                    'css': 'thead-%s' % name.replace('_', '-'),
                     'sortable': True,
                     'href': context.uri.path,
                     'href_up': base_href.replace(reverse=0),
@@ -594,4 +596,3 @@ class ContextMenu(CMSTemplate):
                 item.setdefault(name, None)
 
         return items
-
