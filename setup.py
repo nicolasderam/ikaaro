@@ -15,9 +15,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Import from itools
+from itools.core import get_abspath
 from itools.pkg import setup
 
 
 if __name__ == '__main__':
-    setup()
+    path = get_abspath('')
+    setup(path)
 
